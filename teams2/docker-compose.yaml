@@ -8,6 +8,8 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
+      FIBER_IP: 172.31.10.2
+      SAT_IP: 172.31.20.2
       BRANCH_NAME: branch_b
       PEER_FIBER_IP: 172.31.10.1
       PEER_SAT_IP: 172.31.20.1
@@ -32,6 +34,8 @@ services:
       - branch_b
     environment:
       BRANCH_NAME: branch_a
+      FIBER_IP: 172.31.10.3
+      SAT_IP: 172.31.20.3 
       PEER_FIBER_IP: 172.31.10.2
       PEER_SAT_IP: 172.31.20.2
       PEER_BRANCH_NET: 172.31.200.0/24
@@ -48,19 +52,23 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.31.10.0/30
+        - subnet: 172.31.10.0/29
+          gateway: 172.31.10.5
   sat_net:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.31.20.0/30
+        - subnet: 172.31.20.0/29
+          gateway: 172.31.20.5
   branch_a_lan:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.31.100.0/24
+        - subnet: 172.31.100.0/29
+          gateway: 172.31.100.5
   branch_b_lan:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.31.200.0/24
+        - subnet: 172.31.200.0/29
+          gateway: 172.31.200.5
